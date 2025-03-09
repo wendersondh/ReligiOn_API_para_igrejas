@@ -1,0 +1,26 @@
+{
+  "name": "religion_api_para_igrejas-2",
+  "version": "1.0.0",
+  "description": "PLATAFORMA DE GESTÃO E INTERAÇÃO PARA COMUNIDADES RELIGIOSAS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.4.1",
+    "bcryptjs": "^3.0.2",
+    "express": "^4.21.2",
+    "prisma": "^6.4.1",
+    "sqlite3": "^5.1.7",
+    "uuid": "^11.1.0"
+  }
+}
