@@ -1,8 +1,9 @@
-declare namespace global {
-    namespace NodeJS {
-      interface ProcessEnv {
-        DATABASE_URL: string;
-      }
+import { JwtPayload } from '../types/userTypes';
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: JwtPayload;
     }
   }
-  
+}
