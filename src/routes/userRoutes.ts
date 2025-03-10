@@ -2,19 +2,24 @@ import { Router, Request, Response } from 'express';
 import { createUser, getUser, authenticateUser, updateUser, deleteUser } from '../controllers/userController';
 import { validateUser } from '../middlewares/validateUser';
 import { authenticateJWT } from '../middlewares/authMiddleware';
+import upload from '../middlewares/uploadMiddleware'; 
 
 const router = Router();
 
 // Rota para criar um usuário
-router.post('/users', validateUser, async (req: any, res: any) => {
+router.post('/users', upload.single('image'), validateUser, async (req: any, res: any) => {
   try {
-    const { name, email, password, role, userType, phone, image } = req.body;
+    const { name, email, password, role, userType, phone } = req.body;
 
     if (!name || !email || !password || !role || !userType) {
       return res.status(400).json({ message: 'Name, email, password, role, and userType are required' });
     }
 
-    const user = await createUser(name, email, password, role, userType, phone, image);
+    // Se houver uma imagem enviada, pega o caminho dela
+    const imageUrl: string | undefined = req.file ? `/uploads/${req.file.filename}` : undefined;
+
+    // Cria o usuário, incluindo a url da imagem
+    const user = await createUser(name, email, password, role, userType, phone, imageUrl);
     return res.status(201).json(user);
   } catch (error) {
     console.error(error);
