@@ -16,9 +16,21 @@ model User {
   image     String?
   role      String
   userType  UserType
+
+  Inspiracional Inspiracional[]
 }
 
 enum UserType {
   LEADER
   MEMBER
+}
+
+model Inspiracional {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
 }
