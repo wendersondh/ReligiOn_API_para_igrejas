@@ -22,6 +22,7 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "prisma": "^6.4.1",
+    "religion_api_para_igrejas-2": "file:",
     "sqlite3": "^5.1.7",
     "uuid": "^11.1.0"
   }

@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, UserType } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -63,4 +63,23 @@ export const getUser = async (email: string) => {
     },
   });
   return user;
+};
+
+// Atualizar usuário
+export const updateUser = async (id: string, data: Partial<{ name?: string; email?: string; password?: string; phone?: string; image?: string; role?: string; userType?: UserType }>) => {
+  if (data.userType && !(data.userType in UserType)) {
+    throw new Error('Invalid userType');
+  }
+
+  return await prisma.user.update({
+    where: { id },
+    data,
+  });
+};
+
+// Excluir usuário
+export const deleteUser = async (id: string) => {
+  return await prisma.user.delete({
+    where: { id },
+  });
 };

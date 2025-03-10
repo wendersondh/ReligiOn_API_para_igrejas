@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { createUser, getUser, authenticateUser } from '../controllers/userController';
+import { createUser, getUser, authenticateUser, updateUser, deleteUser } from '../controllers/userController';
 import { validateUser } from '../middlewares/validateUser';
 import { authenticateJWT } from '../middlewares/authMiddleware';
 
@@ -60,6 +60,30 @@ router.get('/users/:email', authenticateJWT, async (req: any, res: any) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Something went wrong' });
+  }
+});
+
+// Atualizar usuário (rota protegida)
+router.put('/users/:id', authenticateJWT, async (req:any, res:any) => {
+  try {
+    const { id } = req.params;
+    const updatedUser = await updateUser(id, req.body);
+    return res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ message: 'Error updating user' });
+  }
+});
+
+// Excluir usuário (rota protegida)
+router.delete('/users/:id', authenticateJWT, async (req:any, res:any) => {
+  try {
+    const { id } = req.params;
+    await deleteUser(id);
+    return res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ message: 'Error deleting user' });
   }
 });
 
