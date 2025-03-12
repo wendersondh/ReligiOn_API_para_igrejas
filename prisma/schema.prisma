@@ -18,6 +18,7 @@ model User {
   userType  UserType
 
   Inspiracional Inspiracional[]
+  Sermao Sermao[]
 }
 
 enum UserType {
@@ -34,3 +35,16 @@ model Inspiracional {
   userId    String
   user      User     @relation(fields: [userId], references: [id])
 }
+
+model Sermao {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  date      DateTime
+  mediaFile String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+}
+
