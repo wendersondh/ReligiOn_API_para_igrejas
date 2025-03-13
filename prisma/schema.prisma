@@ -19,6 +19,7 @@ model User {
 
   Inspiracional Inspiracional[]
   Sermao Sermao[]
+  Eventos Evento[]
 }
 
 enum UserType {
@@ -47,4 +48,19 @@ model Sermao {
   userId    String
   user      User     @relation(fields: [userId], references: [id])
 }
+
+model Evento {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  publico     String
+  date        DateTime
+  latitude    Float
+  longitude   Float
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 
